@@ -1,0 +1,43 @@
+name: ManualDeployToStg
+
+# release/hotfix 브랜치에서 가장 최근의 rc 버전 TAG로 AWS 배포 하는 Workflow
+# BuildAndDeployToStg job에서 container, cluster, service_prefix 를 변경하여 사용하도록 한다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: true
+        description: 배포 환경 (수정 불가)
+        options:
+          - STG
+      region:
+        type: choice
+        required: true
+        description: 배포할 AWS region를 선택하세요.
+        options:
+          - ap-northeast-2
+
+jobs:
+  DeployToDev:
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/DeployToStg.yml@main
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STG }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }}
+    with:
+      # Checkout 시 필요한 Input Data
+      repository: ${{ github.repository }}
+      ref_name: ${{ github.ref_name }}
+      # AWS 배포 시 필요한 데이터
+      commit: ${{ github.sha }}
+      environment: ${{ inputs.environment }}
+      region: ${{ inputs.region }}
+      account_id_dev: "118166980108"
+      account_id_stg: "666644083535"
+      account_id_prod: "071637104407"
+      product_name: ggq
+      application_code: lol_auth
+      s3_api_doc_folder_name: ggq-lol-auth
+      # Slack 송신에 필요한 데이터
+      server_name: Auth Server
