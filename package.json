@@ -1,0 +1,23 @@
+{
+  "name": "GithubAction-Test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyeongminKang-GGQ/GithubAction-Test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KyeongminKang-GGQ/GithubAction-Test/issues"
+  },
+  "homepage": "https://github.com/KyeongminKang-GGQ/GithubAction-Test#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
