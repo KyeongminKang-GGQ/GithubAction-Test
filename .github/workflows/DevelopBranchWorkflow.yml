@@ -7,7 +7,7 @@ on:
 
 jobs:
   CreateIssuesFromTodos:
-    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/CreateIssuesFromTodos.yml@main
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/CreateIssueFromTodo.yml@main
     with:
       repository: ${{ github.repository }}
       ref_name: ${{ github.ref_name }}
