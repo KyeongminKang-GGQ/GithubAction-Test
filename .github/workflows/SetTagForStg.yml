@@ -1,0 +1,16 @@
+name: SetTagForStg
+
+# release/hotfix 브랜치에서 STG 환경 배포 전 Tag를 생성하기 위한 수동 Workflow
+# hotfix 브랜치면 1.0.0-rc.1+hotfix.yymmdd
+# release 브랜치면 1.0.0-rc.1+yymmdd
+# hotfix/release 브랜치에 Tag 생성 후 생성된 Tag로 서버 배포를 진행한다.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  SetTagForStg:
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/SetTagForStg.yml@main
+    with:
+      repository: ${{ github.repository }}
+      ref_name: ${{ github.ref_name }}
