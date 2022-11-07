@@ -11,6 +11,7 @@ on:
 jobs:
   SetTagForProd:
     uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/SetTagForProd.yml@main
+    secrets: inherit
     with:
       repository: ${{ github.repository }}
       ref_name: ${{ github.ref_name }}
