@@ -1,0 +1,47 @@
+name: DevelopBranchWorkflow
+
+on:
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  CreateIssuesFromTodos:
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/CreateIssuesFromTodos.yml@main
+    with:
+      repository: ${{ github.repository }}
+      ref_name: ${{ github.ref_name }}
+
+  GetAwsValue:
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/GetAwsValue.yml@main
+    with:
+      # DEV환경은 [ap-northeast-2] 로 고정
+      environment: DEV
+      region: ap-northeast-2
+      account_id_dev: "118166980108"
+      account_id_stg: "666644083535"
+      account_id_prod: "071637104407"
+      product_name: ggq
+      application_code: lol_auth
+      s3_api_doc_folder_name: ggq-lol-auth
+
+  BuildAndDeployToDev:
+    #uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/Deploy.yml@main
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/JustPrintDeploy.yml@main
+    needs: [GetAwsValue]
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+    with:
+      repository: ${{ github.repository }}
+      ref_name: ${{ github.ref_name }}
+      commit: ${{ github.sha }}
+      region: ${{ needs.GetAwsValue.outputs.region }}
+      ecr_registry: ${{ needs.GetAwsValue.outputs.ecr_registry }}
+      ecr_repository: ${{ needs.GetAwsValue.outputs.ecr_repository }}
+      task_definition: ${{ needs.GetAwsValue.outputs.task_definition }}
+      container: ${{ needs.GetAwsValue.outputs.container }}
+      service: ${{ needs.GetAwsValue.outputs.service }}
+      cluster: ${{ needs.GetAwsValue.outputs.cluster }}
+      api_doc: ${{ needs.GetAwsValue.outputs.api_doc }}
+      version: ${{ github.ref_name }}
