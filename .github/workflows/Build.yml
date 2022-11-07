@@ -16,8 +16,8 @@ jobs:
       account_id_stg: "666644083535"
       account_id_prod: "071637104407"
       product_name: ggq
-      container_name: lol_auth
-      api_doc_bucket_name: ggq-lol-auth
+      application_code: lol_auth
+      s3_api_doc_folder_name: ggq-lol-auth
 
   Build:
     runs-on: ubuntu-latest
