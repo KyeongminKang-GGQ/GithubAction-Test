@@ -1,0 +1,30 @@
+name: Lint
+
+on:
+  push:
+    branches-ignore:
+      - "release**"
+      - "develop**"
+
+jobs:
+  Coverage:
+    permissions:
+      contents: write
+      checks: write
+      pull-requests: write
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+  Linter:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - run: npm install
+      - run: npx eslint src

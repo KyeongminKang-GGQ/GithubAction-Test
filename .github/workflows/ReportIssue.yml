@@ -1,0 +1,15 @@
+name: ReportIssue
+
+# cron: https://crontab.guru/
+# 이 크론은 매주 월요일 한국 시간 9시 30분(AM)에 실행됩니다.
+on:
+  workflow_dispatch:
+  #schedule:
+  #  - cron: 30 0 * * 1
+
+jobs:
+  ReportIssue:
+    uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/ReportIssue.yml@main
+    with:
+      repository: ${{ github.repository }}
+      ref_name: ${{ github.ref_name }}

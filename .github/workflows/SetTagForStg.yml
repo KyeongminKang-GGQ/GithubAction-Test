@@ -11,6 +11,7 @@ on:
 jobs:
   SetTagForStg:
     uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/SetTagForStg.yml@main
+    secrets: inherit
     with:
       repository: ${{ github.repository }}
       ref_name: ${{ github.ref_name }}

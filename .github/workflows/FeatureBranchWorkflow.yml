@@ -1,4 +1,4 @@
-name: Build
+name: FeatureBranchWorkflow
 on:
   workflow_dispatch:
   #push:
@@ -21,15 +21,15 @@ jobs:
 
   Build:
     runs-on: ubuntu-latest
-    needs: GetAwsValue
+    needs: [GetAwsValue]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Build Test
         env:
-          ECR_REGISTRY: ${{ needs.GetAwsValue.outputs.registry }}
-          ECR_REPOSITORY: ${{ needs.GetAwsValue.outputs.repository }}
+          ECR_REGISTRY: ${{ needs.GetAwsValue.outputs.ecr_registry }}
+          ECR_REPOSITORY: ${{ needs.GetAwsValue.outputs.ecr_repository }}
           IMAGE_TAG: ${{ github.sha }}
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         run: |
