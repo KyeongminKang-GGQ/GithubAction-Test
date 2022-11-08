@@ -23,6 +23,7 @@ jobs:
     uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/RollbackDeploy.yml@main
     secrets: inherit
     with:
+      tag: ${{ inputs.tag }}
       # Checkout 시 필요한 Input Data
       repository: ${{ github.repository }}
       ref_name: ${{ github.ref_name }}
