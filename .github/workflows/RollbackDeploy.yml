@@ -33,7 +33,7 @@ jobs:
       account_id_dev: "118166980108"
       account_id_stg: "666644083535"
       account_id_prod: "071637104407"
-      product_name: ggq
+      product_code: ggq
       application_code: lol_auth
       s3_api_doc_folder_name: ggq-lol-auth
       # Slack 송신에 필요한 데이터
