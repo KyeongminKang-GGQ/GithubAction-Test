@@ -3,16 +3,23 @@ name: SetVariables
 on:
   workflow_call:
     outputs:
-      account_id_dev: ${{ jobs.SetVariable.outputs.account_id_dev }}
-      account_id_stg: ${{ jobs.SetVariable.outputs.account_id_stg }}
-      account_id_prod: ${{ jobs.SetVariable.outputs.account_id_prod }}
-      product_code: ${{ jobs.SetVariable.outputs.product_code }}
-      application_code: ${{ jobs.SetVariable.outputs.application_code }}
-      s3_api_doc_folder_name: ${{ jobs.SetVariable.outputs.s3_api_doc_folder_name }}
-      server_name: ${{ jobs.SetVariable.outputs.server_name }}
+      account_id_dev:
+        value: ${{ jobs.SetVariables.outputs.account_id_dev }}
+      account_id_stg:
+        value: ${{ jobs.SetVariables.outputs.account_id_stg }}
+      account_id_prod:
+        value: ${{ jobs.SetVariables.outputs.account_id_prod }}
+      product_code:
+        value: ${{ jobs.SetVariables.outputs.product_code }}
+      application_code:
+        value: ${{ jobs.SetVariables.outputs.application_code }}
+      s3_api_doc_folder_name:
+        value: ${{ jobs.SetVariables.outputs.s3_api_doc_folder_name }}
+      server_name:
+        value: ${{ jobs.SetVariables.outputs.server_name }}
 
 jobs:
-  SetVariable:
+  SetVariables:
     runs-on: ubuntu-latest
     outputs:
       account_id_dev: ${{ env.json_account_id_dev }}
