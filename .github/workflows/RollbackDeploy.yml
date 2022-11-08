@@ -29,7 +29,6 @@ jobs:
       ref_name: ${{ github.ref_name }}
       # AWS 배포 시 필요한 데이터
       commit: ${{ github.sha }}
-      environment: ${{ inputs.environment }}
       region: ${{ inputs.region }}
       account_id_dev: "118166980108"
       account_id_stg: "666644083535"
