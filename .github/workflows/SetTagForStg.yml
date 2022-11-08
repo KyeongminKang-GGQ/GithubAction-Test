@@ -11,7 +11,8 @@ on:
 jobs:
   SetTagForStg:
     uses: ggqcompany/github-actions/.github/workflows/SetTagForStg.yml@main
-    secrets: inherit
+    secrets:
+      SLACK_TODO_WEBHOOK_URL: ${{ secrets.SLACK_TODO_WEBHOOK_URL }}
     with:
       repository: ${{ github.repository }}
       ref_name: ${{ github.ref_name }}
