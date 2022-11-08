@@ -21,6 +21,18 @@ on:
           - ap-northeast-2
 
 jobs:
+  SetVariable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: JSON to variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: "variables.json"
+          prefix: aws
+
+      - name: Show output
+        run: echo "dev account id is ${{ env.aws_account_id_dev }}"
+
   DeployToDev:
     uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/DeployToDev.yml@main
     secrets:
