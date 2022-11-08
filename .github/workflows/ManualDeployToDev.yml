@@ -22,19 +22,10 @@ on:
 
 jobs:
   SetVariable:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: JSON to variables
-        uses: antifree/json-to-variables@v1.0.1
-        with:
-          filename: ".github/workflows/variables.json"
-          prefix: aws
-
-      - name: Show output
-        run: echo "dev account id is ${{ env.aws_account_id_dev }}"
+    uses: ./.github/workflows/SetVariables.yml
 
   DeployToDev:
+    needs: [SetVariable]
     uses: KyeongminKang-GGQ/GithubAction-ContainerTest/.github/workflows/DeployToDev.yml@main
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
@@ -48,11 +39,11 @@ jobs:
       commit: ${{ github.sha }}
       environment: ${{ inputs.environment }}
       region: ${{ inputs.region }}
-      account_id_dev: "118166980108"
-      account_id_stg: "666644083535"
-      account_id_prod: "071637104407"
-      product_code: ggq
-      application_code: lol_auth
-      s3_api_doc_folder_name: ggq-lol-auth
+      account_id_dev: ${{ needs.SetVariable.outputs.account_id_dev }}
+      account_id_stg: ${{ needs.SetVariable.outputs.account_id_stg }}
+      account_id_prod: ${{ needs.SetVariable.outputs.account_id_prod }}
+      product_code: ${{ needs.SetVariable.outputs.product_code }}
+      application_code: ${{ needs.SetVariable.outputs.application_code }}
+      s3_api_doc_folder_name: ${{ needs.SetVariable.outputs.s3_api_doc_folder_name }}
       # Slack 송신에 필요한 데이터
-      server_name: Auth Server
+      server_name: ${{ needs.SetVariable.outputs.server_name }}

@@ -1,0 +1,30 @@
+name: SetVariables
+
+on:
+  workflow_call:
+    outputs:
+      account_id_dev: ${{ jobs.SetVariable.outputs.account_id_dev }}
+      account_id_stg: ${{ jobs.SetVariable.outputs.account_id_stg }}
+      account_id_prod: ${{ jobs.SetVariable.outputs.account_id_prod }}
+      product_code: ${{ jobs.SetVariable.outputs.product_code }}
+      application_code: ${{ jobs.SetVariable.outputs.application_code }}
+      s3_api_doc_folder_name: ${{ jobs.SetVariable.outputs.s3_api_doc_folder_name }}
+      server_name: ${{ jobs.SetVariable.outputs.server_name }}
+
+jobs:
+  SetVariable:
+    runs-on: ubuntu-latest
+    outputs:
+      account_id_dev: ${{ env.json_account_id_dev }}
+      account_id_stg: ${{ env.json_account_id_stg }}
+      account_id_prod: ${{ env.json_account_id_prod }}
+      product_code: ${{ env.json_product_code }}
+      application_code: ${{ env.json_application_code }}
+      s3_api_doc_folder_name: ${{ env.json_s3_api_doc_folder_name }}
+      server_name: ${{ env.json_server_name }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: JSON to variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: ".github/workflows/variables.json"
