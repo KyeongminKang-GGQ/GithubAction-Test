@@ -1,4 +1,4 @@
-name: GetUnitTestStatus
+name: UnitTestReport
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
   # - cron: "0 0 * * *"
 
 jobs:
-  NotifyUnitTest:
+  UnitTestReport:
     permissions:
       contents: write
       checks: write
