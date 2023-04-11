@@ -1,4 +1,4 @@
-name: Deploy Android
+name: DecodeJsonTest
 
 on:
   workflow_dispatch:
