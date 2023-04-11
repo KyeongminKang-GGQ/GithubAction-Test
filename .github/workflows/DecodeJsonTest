@@ -23,7 +23,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: ".env"
-          encodedString: ${{ secrets.FASTLANE_GOOGLE_SERVICE_ACCOUNT_JSON_KEY_BASE64 }}
+          encodedString: ${{ secrets.ENV_BASE64 }}
           
       - name: Print 
         run: cat .env
