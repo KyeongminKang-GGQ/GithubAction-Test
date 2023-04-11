@@ -1,0 +1,29 @@
+name: Deploy Android
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download KEY json_key_file
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "key.json"
+          encodedString: ${{ secrets.KEY_BASE64 }}
+          
+      - name: Print 
+        run: cat key.json
+
+      - name: Download .env
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: ".env"
+          encodedString: ${{ secrets.FASTLANE_GOOGLE_SERVICE_ACCOUNT_JSON_KEY_BASE64 }}
+          
+      - name: Print 
+        run: cat .env
